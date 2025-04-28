@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naa Website</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .main-heading {
+            font-size: 3em;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .round-button {
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .round-button:hover {
+            background-color: darkgreen;
+        }
+
+        .hidden {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-heading">Hello</h1>
+        <button id="learn-more-btn" class="round-button">Learn More</button>
+        <p id="message" class="hidden">Hi!</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const learnMoreBtn = document.getElementById('learn-more-btn');
+            const messageElement = document.getElementById('message');
+
+            learnMoreBtn.addEventListener('click', function() {
+                fetch('/api/hello')
+                    .then(response => response.text())
+                    .then(data => {
+                        messageElement.textContent = data;
+                        messageElement.classList.remove('hidden');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        messageElement.textContent = 'Something went wrong!';
+                        messageElement.classList.remove('hidden');
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
